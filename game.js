@@ -61,22 +61,25 @@ function game(){
         let p = prompt("Type ROCK-PAPER-SCISSORS");
         let c = getComputerChoice();
 
-        if (playSingleRound(p,c)==1){
+        let game_value = playSingleRound(p,c);
+
+        if (game_value === 1){
             p_score += 1;
-        } else if (playSingleRound(p,c)==2){
+        } else if (game_value === 2){
             c_score += 1;
         }
-
-        console.log(`Player Score:${p_score} Computer Score:${c_score}`)
-        
+        console.log(`Your score:${p_score} vs. Computer Score:${c_score}`);
     }
 
     
 
     if (p_score>c_score){
-        console.log("Congrats! You Won!")
-    } else{
-        console.log("Motherfucker Won..")    }
+        console.log("CONGRATS!! YOU CRUSHED THE COMPUTER!!")
+    } else if (c_score>p_score){
+        console.log("SHAME!! COMPUTER SLAMMED YOU!!")
+    } else {
+        console.log("NO ONE WON!!")
+    }
 
 }
 
