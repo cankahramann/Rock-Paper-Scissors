@@ -1,50 +1,53 @@
 function getComputerChoice(){
-    let num = Math.floor(Math.random()*3+1)
+    let num =  Math.floor(Math.random() * (3 - 1 + 1)) + 1;
     if (num==1) {
-        return "Rock"
+        console.log(num,"ROCK");
+        return "ROCK"
     } else if (num==2){
-        return "Paper"
-    }else{
-        return "Scissors"
+        console.log(num,"PAPER");
+        return "PAPER"
+    }else if (num ==3){
+        console.log(num,"SCISSORS");
+        return "SCISSORS"
     }
+  
 }
 
 
 function playSingleRound(player_choice,computer_choice){
-    player = player_choice.toUpperCase();
-    computer = computer_choice.toUpperCase();
 
-    if (player === "ROCK"){
-        if (computer === "ROCK"){
+
+    if (player_choice === "ROCK"){
+        if (computer_choice === "ROCK"){
             gameflow.innerHTML = "Tie Game!";
             return 0 
-        } else if (computer === "PAPER" ){
+        } else if (computer_choice === "PAPER" ){
             gameflow.innerHTML = "Paper wraps Rock! You lost!";
             return 2
-        } else {
+        } else if (computer_choice === "SCISSORS") {
             gameflow.innerHTML = "Rock crushes Scissors! You win!";
             return 1
         }
 
-    } else if (player ==="PAPER") {
-        if (computer === "ROCK") {
+    } else if (player_choice ==="PAPER") {
+        if (computer_choice === "ROCK") {
             gameflow.innerHTML = "Paper wraps Rock! You win!";
             return 1
-        } else if (computer="SCISSORS") {
+        } else if (computer_choice ==="SCISSORS") {
             gameflow.innerHTML = "Scissors cuts Paper! You lost!";
             return 2
-        } else {
+        } else if (computer_choice==="PAPER") {
             gameflow.innerHTML = "Tie Game!"
             return  0 
         }
-    } else {
-        if(computer === "SCISSORS"){
+    } else if (player_choice==="SCISSORS"){
+        if(computer_choice === "SCISSORS"){
             gameflow.innerHTML = "Tie Game!";
             return 0
-        } else if (computer === "ROCK"){
+        } else if (computer_choice === "ROCK"){
             gameflow.innerHTML = "Rock beats Scissors! Computer wins!";
             return 2
-        } else {
+        } else if(computer_choice ==="PAPER") {
             gameflow.innerHTML = "Scissors cuts Paper! You win!";
             return 1
         }
@@ -126,10 +129,10 @@ scibut.addEventListener("click",function(){
         computer = getComputerChoice();
         game(user_choice,computer);
         if (computer_score === 5){
-            best_five=false;
+            best_five=true;
             gameflow.innerHTML ="COMPUTER CRUSHED YOU!!";
         }else if (user_score === 5){
-            best_five =false;
+            best_five =true;
             gameflow.innerHTML = "YOU SLAYED THE COMPUTER!!";
         }
     }
