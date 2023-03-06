@@ -9,79 +9,130 @@ function getComputerChoice(){
     }
 }
 
+
 function playSingleRound(player_choice,computer_choice){
     player = player_choice.toUpperCase();
     computer = computer_choice.toUpperCase();
 
     if (player === "ROCK"){
         if (computer === "ROCK"){
-            console.log("Tie Game!")
+            gameflow.innerHTML = "Tie Game!";
             return 0 
         } else if (computer === "PAPER" ){
-            console.log("Paper wraps Rock! You lost!")
+            gameflow.innerHTML = "Paper wraps Rock! You lost!";
             return 2
         } else {
-            console.log("Rock crushes Scissors! You win!")
+            gameflow.innerHTML = "Rock crushes Scissors! You win!";
             return 1
         }
 
     } else if (player ==="PAPER") {
         if (computer === "ROCK") {
-            console.log("Paper wraps Rock! You win!")
+            gameflow.innerHTML = "Paper wraps Rock! You win!";
             return 1
         } else if (computer="SCISSORS") {
-            console.log("Scissors cuts Paper! You lost!") 
+            gameflow.innerHTML = "Scissors cuts Paper! You lost!";
             return 2
         } else {
-            console.log("Tie Game!")
+            gameflow.innerHTML = "Tie Game!"
             return  0 
         }
     } else {
         if(computer === "SCISSORS"){
-            console.log("Tie Game!")
+            gameflow.innerHTML = "Tie Game!";
             return 0
         } else if (computer === "ROCK"){
-            console.log("Rock beats Scissors! Computer wins!")
+            gameflow.innerHTML = "Rock beats Scissors! Computer wins!";
             return 2
         } else {
-            console.log("Scissors cuts Paper! You win!")
+            gameflow.innerHTML = "Scissors cuts Paper! You win!";
             return 1
         }
     }
-
-
 }
 
 
-function game(){
-    let p_score = 0;
-    let c_score = 0;
+function game(p,c){
 
-    for (let i = 1; i <=5; i++){
-        let p = prompt("Type ROCK-PAPER-SCISSORS");
-        let c = getComputerChoice();
+    let game_value = playSingleRound(p,c);
 
-        let game_value = playSingleRound(p,c);
+    if (game_value === 1){
+        user_score += 1;
+    } else if (game_value === 2){
+        computer_score += 1;
+    }
+    let text = `You ${user_score}:${computer_score} Computer`;
+    game_score.innerHTML = text;
 
-        if (game_value === 1){
-            p_score += 1;
-        } else if (game_value === 2){
-            c_score += 1;
+}
+
+let computer_score = 0;
+let user_score = 0;
+
+let rockbut = document.getElementById("rock");
+let paperbut = document.getElementById("paper");
+let scibut = document.getElementById("scissors");
+let gameflow = document.getElementById("flow");
+let game_score = document.getElementById("score");
+let best_five = false;
+let user_choice = "";
+
+
+
+rockbut.addEventListener("click",function(){
+    if (best_five){
+        gameflow.innerHTML ="GAME HAS FINISHED. TO PLAY AGAIN RELOAD THE PAGE!"
+    }else {
+        user_choice = "ROCK";
+        computer = getComputerChoice();
+        game(user_choice,computer);
+        if (computer_score === 5){
+            best_five = true;
+            gameflow.innerHTML ="COMPUTER CRUSHED YOU!!";
+        }else if (user_score === 5){
+            best_five = true;
+            gameflow.innerHTML = "YOU SLAYED THE COMPUTER!!";
         }
-        console.log(`Your score:${p_score} vs. Computer Score:${c_score}`);
     }
-
     
+});
 
-    if (p_score>c_score){
-        console.log("CONGRATS!! YOU CRUSHED THE COMPUTER!!")
-    } else if (c_score>p_score){
-        console.log("SHAME!! COMPUTER SLAMMED YOU!!")
-    } else {
-        console.log("NO ONE WON!!")
+
+paperbut.addEventListener("click",function(){
+    if (best_five){
+        gameflow.innerHTML ="GAME HAS FINISHED. TO PLAY AGAIN RELOAD THE PAGE!"
+    }else {
+           
+        user_choice = "PAPER";
+        computer = getComputerChoice();
+        game(user_choice,computer);
+        if (computer_score === 5){
+            best_five = true;
+            gameflow.innerHTML ="COMPUTER CRUSHED YOU!!";
+        }else if (user_score === 5){
+            best_five = true;
+            gameflow.innerHTML = "YOU SLAYED THE COMPUTER!!";
+        }
+
     }
+ 
+});
 
-}
-
-
-game();
+scibut.addEventListener("click",function(){
+    if (best_five){
+        gameflow.innerHTML ="GAME HAS FINISHED. TO PLAY AGAIN RELOAD THE PAGE!"
+    }else {
+        user_choice = "SCISSORS";
+        computer = getComputerChoice();
+        game(user_choice,computer);
+        if (computer_score === 5){
+            best_five=false;
+            gameflow.innerHTML ="COMPUTER CRUSHED YOU!!";
+        }else if (user_score === 5){
+            best_five =false;
+            gameflow.innerHTML = "YOU SLAYED THE COMPUTER!!";
+        }
+    }
+    
+  
+});

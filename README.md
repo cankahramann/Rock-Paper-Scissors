@@ -1,1 +1,1 @@
-# Rock-Paper-Scissors
+-player choice = by clikcking one of three images on the screen.
